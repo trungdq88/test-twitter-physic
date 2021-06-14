@@ -1,0 +1,302 @@
+/*
+
+Follow me on Twitter!
+
+https://twitter.com/tdinh_me
+
+License: MIT
+
+*/
+
+body {
+}
+
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  height: 100px;
+
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+.heart {
+  z-index: 4;
+  width: 24px;
+  height: 24px;
+  color: rgb(136, 153, 166);
+  fill: currentColor;
+  position: absolute;
+}
+
+.text {
+  transform: scale(0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  color: #fff;
+  z-index: 5;
+  font-size: 12px;
+  display: block;
+  width: 24px;
+  height: 24px;
+  line-height: 22px;
+  font-weight: bold;
+}
+
+.plus {
+  color: #ce3a60;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-weight: bold;
+  position: absolute;
+  z-index: 5;
+  font-size: 14px;
+  transform: scale(0);
+  opacity: 0;
+  animation-timing-function: linear;
+}
+
+.plus.p1 {
+  left: 18px;
+  top: -5px;
+  animation-delay: 0.2s;
+}
+
+.plus.p2 {
+  left: 1px;
+  top: -7px;
+  animation-delay: 0.1s;
+}
+
+.plus.p3 {
+  left: 11px;
+  top: -13px;
+}
+
+.heart.liked {
+  display: none;
+  color: #ce3a60;
+}
+
+.heart-container {
+  text-align: left;
+  display: inline-block;
+  position: relative;
+  user-select: none;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  border-color: #fff;
+
+  transition: border-color 0.3s;
+}
+
+.heart-container:hover {
+  border: 7px solid #f3e4e8;
+  border-radius: 100%;
+  background: #f3e4e8;
+}
+
+.heart-container.liked:hover {
+  border-color: #fff;
+  border-radius: 100%;
+  background: transparent;
+}
+
+.heart-container:hover .heart {
+  color: #c6385c;
+}
+
+.heart-container:before {
+  z-index: 1;
+  left: 0;
+  top: 0;
+  display: block;
+  content: '';
+  background: #ce3960;
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  transform: scale(0);
+}
+
+.heart-container:after {
+  z-index: 3;
+  left: 0;
+  top: 0;
+  display: block;
+  content: '';
+  background: #ffffff;
+  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  transform: scale(0);
+}
+
+.heart-container.liked .heart.liked {
+  display: inline-block;
+  animation-name: popin;
+  animation-duration: 1s;
+}
+.heart-container.liked .heart.empty {
+  display: none;
+}
+
+.heart-container.liked:before {
+  animation-name: popin-circle-out;
+  animation-duration: 1s;
+}
+
+.heart-container.liked:after {
+  animation-name: popin-circle-in;
+  animation-duration: 1s;
+}
+
+.heart-container.liked .text {
+  animation-name: popin-text;
+  animation-duration: 1s;
+}
+
+.heart-container.liked .plus {
+  animation-name: popin-plus;
+  animation-duration: 1s;
+}
+
+@keyframes popin-circle-out {
+  0% {
+    transform: scale(0);
+  }
+
+  20% {
+    transform: scale(1.2);
+    background: #ce3960;
+  }
+
+  30% {
+    transform: scale(1.2);
+    background: #c394e8;
+  }
+
+  100% {
+    transform: scale(1.2);
+    background: #c394e8;
+  }
+}
+
+@keyframes popin-circle-in {
+  0% {
+    transform: scale(0);
+  }
+
+  20% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes popin-text {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  90% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes popin-plus {
+  0% {
+    transform: scale(0.5) translateY(0px);
+    opacity: 0;
+  }
+
+  30% {
+    transform: scale(0.5) translateY(0px);
+    opacity: 0;
+  }
+
+  40% {
+    transform: scale(1) translateY(-2px);
+    opacity: 1;
+  }
+
+  60% {
+    transform: scale(1) translateY(-8px);
+    opacity: 1;
+  }
+
+  85% {
+    transform: scale(1) translateY(-10px);
+    opacity: 0;
+  }
+}
+
+@keyframes popin {
+  0% {
+    transform: scale(0);
+  }
+
+  25% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1.2);
+  }
+
+  50% {
+    transform: scale(0.9);
+  }
+
+  60% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+#like {
+  width: 50px;
+  text-align: center;
+}
+
+#retweet {
+  width: 50px;
+  text-align: center;
+  cursor: pointer;
+}
