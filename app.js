@@ -51,13 +51,13 @@ var select = function (root, selector) {
 <path id="user-icon" d="M5 10v7h10.797l1.594 2h-14.391v-9h-3l4-5 4 5h-3zm14 4v-7h-10.797l-1.594-2h14.391v9h3l-4 5-4-5h3z"/>
 </svg>
   `);
-  const bodyC = Bodies.rectangle(100, 200, 50, 50, {
+  const bodyC = Bodies.rectangle(100, 200, 1400, 50, {
     isStatic: true,
-    render: { fillStyle: '#060a19' }
+    render: { fillStyle: 'black' }
   });
   // add all of the bodies to the world
   Composite.add(engine.world, [
-    // bodyC,
+    bodyC,
     Bodies.rectangle(400, 0, 800, 50, {
       isStatic: true,
       render: { fillStyle: '#000000' }
@@ -73,42 +73,7 @@ var select = function (root, selector) {
     Bodies.rectangle(0, 300, 50, 600, {
       isStatic: true,
       render: { fillStyle: '#000000' }
-    }),
-
-    Bodies.rectangle(180, 145, 120, 50, {
-      isStatic: true,
-      render: { fillStyle: 'transparent' }
-    }),
-    Bodies.rectangle(400, 140, 190, 50, {
-      isStatic: true,
-      render: { fillStyle: 'transparent' }
-    }),
-    Bodies.rectangle(610, 140, 140, 50, {
-      isStatic: true,
-      render: { fillStyle: 'transparent' }
-    }),
-    Bodies.rectangle(625, 128, 110, 50, {
-      isStatic: true,
-      render: { fillStyle: 'transparent' }
-    }),
-    Bodies.rectangle(715, 260, 110, 50, {
-      isStatic: true,
-      render: { fillStyle: 'transparent' }
-    }),
-    Bodies.rectangle(407, 265, 333, 25, {
-      isStatic: true,
-      render: { fillStyle: 'transparent' }
     })
-    // Bodies.rectangle(200, 200, 1000, 20, {
-    //   isStatic: true,
-    //   angle: Math.PI * 0.04,
-    //   render: { fillStyle: '#000000' }
-    // }),
-    // Bodies.rectangle(600, 400, 1000, 20, {
-    //   isStatic: true,
-    //   angle: -Math.PI * 0.04,
-    //   render: { fillStyle: '#000000' }
-    // })
   ]);
 
   var vertexSets = select(svgRoot, 'path').map(function (path) {
@@ -139,8 +104,8 @@ var select = function (root, selector) {
       true
     );
 
-  const createRetweet = (x, y) =>
-    Bodies.fromVertices(
+  const createRetweet = (x, y) => {
+    const body = Bodies.fromVertices(
       x || Common.random(0, 700),
       y || 40,
       retweetVertexSets,
@@ -156,22 +121,35 @@ var select = function (root, selector) {
       },
       true
     );
+    return body;
+  };
 
-  for (let i = 0; i < 50; i++) {
-    hearts.push(createHeart());
+  for (let i = 0; i < 100; i++) {
+    hearts.push(createHeart(undefined, 200));
   }
 
   Composite.add(engine.world, hearts);
 
-  // var counter = 0,
-  //   scaleFactor = 1.01;
-  // Events.on(engine, 'beforeUpdate', function (event) {
-  //   counter += 1;
-  //
-  //   var px = 400 + 300 * Math.sin(engine.timing.timestamp * 0.001);
-  //   // Body.setVelocity(bodyC, { x: px - bodyA.position.x, y: 570 });
-  //   Body.setPosition(bodyC, { x: px, y: 570 });
-  // });
+  hearts.forEach((body) => {
+    var forceMagnitude = 0.03 * body.mass;
+
+    Body.applyForce(body, body.position, {
+      x:
+        (forceMagnitude + Common.random() * forceMagnitude) *
+        Common.choose([1, -1]),
+      y: -forceMagnitude + Common.random() * -forceMagnitude
+    });
+  });
+
+  var counter = 0,
+    scaleFactor = 1.01;
+  Events.on(engine, 'beforeUpdate', function (event) {
+    counter += 1;
+
+    var p = 300 + 10 * Math.sin(engine.timing.timestamp * 0.08);
+    Body.setVelocity(bodyC, { x: 100, y: p - bodyC.position.y });
+    Body.setPosition(bodyC, { x: 100, y: p });
+  });
 
   // run the renderer
   Render.run(render);
