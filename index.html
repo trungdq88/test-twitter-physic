@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <div id="retweet">
+  <div tabIndex="0" id="retweet">
     <img onClick="addRetweet()" src="retweet.svg" width="32" height="32" />
   </div>
 </div>
@@ -27,17 +27,18 @@ By <a target="_blank" href="https://twitter.com/tdinh_me">@tdinh_me</a>
 </div>
 
 <img style="
+    border-radius: 100%;
     position: absolute;
     z-index: -1;
-    left: 33px;
-    top: 151px;
-    width: 750px;
-" src="thank-you-6000.png" />
+    left: 133px;
+    top: 251px;
+    width: 400px;
+" src="400x400.png" />
 
 <script src="pathseg.js"></script>
 <script src="decomp.min.js"></script>
 <script src="app.js"></script>
 
-<button onClick="addRetweet()">Like</button>
+<button onClick="createCircle()">Like</button>
 
 </body>

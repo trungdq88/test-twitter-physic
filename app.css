@@ -300,3 +300,7 @@ body {
   text-align: center;
   cursor: pointer;
 }
+
+#retweet:active {
+  transform: scale(0.9);
+}
